@@ -15,16 +15,18 @@ class RSAToCSharp:
         self.privateKey = RSA.importKey(key)
         self.publicKey = self.privateKey.publickey()
 
+    # for exporting the public key file, then you would move the file to C#, put it in the base folder of the project
     def make_sharp_public_key_file(self, public_key_file_name='./public.xml'):
         exp = self.convert_python_to_sharp(self.publicKey.e, 3)
         module = self.convert_python_to_sharp(self.publicKey.n, 256)
         xml = open(public_key_file_name, 'wb')
-        xml.write(b'<RSAKeyValue><Exponent>')
+        xml.write(b'<?xml version="1.0" encoding="utf-16"?><RSAParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><Exponent>')
         xml.write(exp)
         xml.write(b'</Exponent><Modulus>')
         xml.write(module)
-        xml.write(b'</Modulus></RSAKeyValue>')
+        xml.write(b'</Modulus></RSAParameters>')
 
+    # this method used to decrypt the text that encrypted in C#
     def decrypt(self, cipher_text):
         random_generator = Random.new().read
         sentinel = random_generator(20)
@@ -32,14 +34,15 @@ class RSAToCSharp:
         plain_text = cipher.decrypt(base64.b64decode(cipher_text.encode('ASCII')), sentinel)
         return plain_text
 
+    # public key file modifier
     @staticmethod
     def convert_python_to_sharp(key, length):
         key = key.to_bytes(length, 'big')
         return base64.b64encode(key)
 
 
-# Sample Code to use
+# Code Sample
 rsa = RSAToCSharp('id_rsa')
 rsa.make_sharp_public_key_file()
-print(rsa.decrypt("Ds6ktP10zV/wnjPijJVrl12h1IHfCt0/huTnAVQ7xw9FR1vMndBTlFrlqAWmbM2mA4p0V/TQBZf5gy5xrXyLZNOYZbbsobZeFu5BdsigOBo1ORsKedKRsALjexYB6AsCG7JALm2ddIv8nndofhMlbib5nyLqQRtKQJl8U6JGVyBjkRwhdprPFah2JZHsJSBzFPw5VH9SsKHi3KsazzkS0UiEFDCiQgit4L1yZfjxcMatzERrxe6niCOSQi3Eit5R445CIRhRNVyygp+cWnoNrnamzR+RKrGe89TheRQQ/FPwNyj4Meo5F8q7ouXDst/Vcry0T7CgnXity0Sc2dTUhg=="))
+print(rsa.decrypt("aQbrG83V98lvJkcaR7Tp2RzNp5hdafoxNIeU5ejXiG1cAyZQm/98veiZxz+V1l53q1s63lUVhhSgBHc4b25rvwV1T1jXlO4YcQUBeOrHCORAtBiDjB5H/Bim5au56ROQ5KNPTzqROwEosX+eGmfys5mQGCRpbr8UtjNnF0sZ/9MngUdKYTDqlM6wNuMzxCdUhgZtS+370ZG15rqrSYTbPJWn08HyA3p1/riaQVc/SImHqcnebqQoKhKmDvt9cxAp6tGhAMJSV8jkyrgQEW0xSBTvZ0UMaSX+15steNC/9jCHsVOdKcncCvwI6rStQaPh75OPXizVymQD/blW2Lz7RA=="))
 
