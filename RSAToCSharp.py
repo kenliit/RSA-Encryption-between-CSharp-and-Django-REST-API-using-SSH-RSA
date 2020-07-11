@@ -38,6 +38,7 @@ class RSAToCSharp:
         return base64.b64encode(key)
 
 
+# Sample Code to use
 rsa = RSAToCSharp('id_rsa')
 rsa.make_sharp_public_key_file()
 print(rsa.decrypt("Ds6ktP10zV/wnjPijJVrl12h1IHfCt0/huTnAVQ7xw9FR1vMndBTlFrlqAWmbM2mA4p0V/TQBZf5gy5xrXyLZNOYZbbsobZeFu5BdsigOBo1ORsKedKRsALjexYB6AsCG7JALm2ddIv8nndofhMlbib5nyLqQRtKQJl8U6JGVyBjkRwhdprPFah2JZHsJSBzFPw5VH9SsKHi3KsazzkS0UiEFDCiQgit4L1yZfjxcMatzERrxe6niCOSQi3Eit5R445CIRhRNVyygp+cWnoNrnamzR+RKrGe89TheRQQ/FPwNyj4Meo5F8q7ouXDst/Vcry0T7CgnXity0Sc2dTUhg=="))
