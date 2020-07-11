@@ -13,6 +13,6 @@ By modifying the public key file for C# end, it makes both ends match the format
 
 2. Copy the key file("id_rsa" file) to python, put it into the same folder of the "RSAToCSharp.py", run "python RSAToCSharp.py".  the script will be creating "public.xml" file.
 
-3. Add the "public.xml" into the C# project, put it into the base project folder. "Copy to Output Directory" property of this file change to "Copy if newer".  then you are all set.
+3. Add the "public.xml" into the C# project, put it into the base project folder. Change the file property to "Copy if newer".  then you are all set.
 
 4. load the "public.xml" with RSACryptoServiceProvider.FromXmlString(), encrypt the string, send it to Django through REST API. Then decrypt the message with "rsa.decrypt" method.  I have showed a sample program here.
