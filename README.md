@@ -6,7 +6,7 @@ This is an example about how to encrypt RSA in C# and decrypt in Django Rest Fra
 2. RSACryptoServiceProvider.FromXmlString in C# requires a xml format string instead of a key file.
 
 # My solution
-By modifying the public key file for C# end, it makes both ends match the format. therefore, the RSA tunnel will be setting up without problem.
+By modifying the public key file for C# end, it makes both ends match the format. then, the RSA tunnel will be setting up without problem.
 
 # How to use
 1. in Windows 10 computer, use "ssh-keygen" to create the private key("id_rsa" file). If you are not sure how to do, just follow this instruction: https://phoenixnap.com/kb/generate-ssh-key-windows-10
